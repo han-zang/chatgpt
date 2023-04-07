@@ -1,8 +1,9 @@
 package chat_http
 
 import (
+	"chatgpt/logger"
 	"chatgpt/typing"
-	"strings"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,11 +34,13 @@ func add_event(grp typing.IRouGroup) {
 
 	g := rou.r.Group(grp.Name())
 	for _, v := range grp.Events() {
-		switch strings.ToUpper(v.Method()) {
-		case "POST":
+		switch v.Method() {
+		case http.MethodPost:
 			g.POST(v.Uri(), f(v.Handle()))
-		case "GET":
+		case http.MethodGet:
 			g.GET(v.Uri(), f(v.Handle()))
+		default:
+			logger.Error("no http method %s", v.Method())
 		}
 	}
 }

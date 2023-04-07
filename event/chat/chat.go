@@ -2,6 +2,7 @@ package chat
 
 import (
 	"chatgpt/typing"
+	"net/http"
 	"sync"
 )
 
@@ -15,7 +16,7 @@ var once sync.Once
 func Get(rou typing.IRou) *group_chat {
 	once.Do(func() {
 		e = &group_chat{}
-		e.lst_event = append(e.lst_event, rou.CreateEvent("POST", "/talk", talk))
+		e.lst_event = append(e.lst_event, rou.CreateEvent(http.MethodPost, "/talk", talk))
 	})
 	return e
 }

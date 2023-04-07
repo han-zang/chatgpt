@@ -22,7 +22,6 @@ func talk(rou typing.IRou, ctx typing.IContext) {
 	// 	return
 	// }
 	// rou.Resp(ctx, http.StatusOK, resp)
-
 	resp, err := client.CreateChatCompletion(
 		context.Background(),
 		openai.ChatCompletionRequest{

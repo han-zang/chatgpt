@@ -2,6 +2,7 @@ package test
 
 import (
 	"chatgpt/typing"
+	"net/http"
 	"sync"
 )
 
@@ -15,7 +16,7 @@ var once sync.Once
 func Get(rou typing.IRou) *group_test {
 	once.Do(func() {
 		e = &group_test{}
-		e.lst_event = append(e.lst_event, rou.CreateEvent("GET", "/ping", ping))
+		e.lst_event = append(e.lst_event, rou.CreateEvent(http.MethodGet, "/ping", ping))
 	})
 	return e
 }
