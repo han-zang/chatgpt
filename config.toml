@@ -1,6 +1,0 @@
-[openai]
-api_key = "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"
-
-[logger]
-level = "debug"
-console = true
