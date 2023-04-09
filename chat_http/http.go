@@ -1,6 +1,7 @@
 package chat_http
 
 import (
+	"chatgpt/logger"
 	"chatgpt/typing"
 	"sync"
 
@@ -21,11 +22,10 @@ func Get() typing.IRou {
 func Init() {
 	once.Do(func() {
 		if rou == nil {
+			gin.SetMode(gin.ReleaseMode)
 			rou = &http_rou{
 				r: gin.New(),
 			}
-			gin.SetMode(gin.ReleaseMode)
-
 		}
 	})
 }
@@ -37,5 +37,7 @@ func Start(lst_mid []typing.IMiddle, lst_grp []typing.IRouGroup) {
 	for _, v := range lst_grp {
 		add_event(v)
 	}
-	rou.r.Run("127.0.0.1:8888")
+	url := "127.0.0.1:8888"
+	logger.Info("http server start: %s", url)
+	rou.r.Run(url)
 }

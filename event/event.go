@@ -1,14 +1,14 @@
 package event
 
 import (
-	"chatgpt/event/chat"
+	"chatgpt/event/eopenai"
 	"chatgpt/event/test"
 	"chatgpt/typing"
 )
 
 func List(rou typing.IRou) []typing.IRouGroup {
 	return []typing.IRouGroup{
-		chat.Get(rou),
+		eopenai.Get(rou),
 		test.Get(rou),
 	}
 }

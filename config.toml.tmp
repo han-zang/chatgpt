@@ -1,2 +1,6 @@
 [openai]
 api_key = ""
+
+[logger]
+level = "debug"
+console = true
