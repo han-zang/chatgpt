@@ -1,5 +1,5 @@
 # 使用 golang:latest 作为基础镜像
-FROM golang:latest
+FROM golang:1.20.3-alpine
 
 # 在容器内创建一个工作目录
 WORKDIR /app
