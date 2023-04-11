@@ -12,13 +12,13 @@ func add_middle(mid typing.IMiddle) {
 	f := func(mid typing.IMiddle) gin.HandlerFunc {
 		return func(c *gin.Context) {
 			// 执行前置操作
-			mid.Before(rou)
+			mid.Before(rou, c)
 
 			// 继续处理请求
 			c.Next()
 
 			// 执行后置操作
-			mid.After(rou)
+			mid.After(rou, c)
 		}
 	}(mid)
 	rou.r.Use(f)

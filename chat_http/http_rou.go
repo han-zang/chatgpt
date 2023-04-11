@@ -1,7 +1,9 @@
 package chat_http
 
 import (
+	"bytes"
 	"chatgpt/typing"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -40,7 +42,17 @@ func (self *http_rou) Body(c typing.IContext, arg interface{}) error {
 	return ctx.BindJSON(arg)
 }
 
-func (self *http_rou) Header(c typing.IContext, arg interface{}) error {
+func (self *http_rou) GetRequest(c typing.IContext, key string) interface{} {
 	ctx := c.(*gin.Context)
-	return ctx.BindHeader(arg)
+	switch key {
+	case "uri":
+		return ctx.Request.URL.Path
+	case "code":
+		return ctx.Writer.Status()
+	case "body":
+		body, _ := ctx.GetRawData()
+		ctx.Request.Body = ioutil.NopCloser(bytes.NewReader(body))
+		return string(body)
+	}
+	return `''`
 }

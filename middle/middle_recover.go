@@ -11,7 +11,7 @@ type MiddleRecover struct {
 
 var mid_recover MiddleRecover
 
-func (*MiddleRecover) Before(c typing.IRou) {
+func (*MiddleRecover) Before(c typing.IRou, ctx typing.IContext) {
 	defer func() {
 		if r := recover(); r != nil {
 			// 错误处理逻辑
@@ -20,5 +20,5 @@ func (*MiddleRecover) Before(c typing.IRou) {
 	}()
 }
 
-func (*MiddleRecover) After(typing.IRou) {
+func (*MiddleRecover) After(typing.IRou, typing.IContext) {
 }
